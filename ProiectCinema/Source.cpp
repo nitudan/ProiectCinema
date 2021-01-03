@@ -1,6 +1,12 @@
 #include <iostream>
 #include <string>
+#include <process.h>
 using namespace std;
+
+
+bool running = true;
+int nrArticole;
+char currentFile[256];
 
 class Sala {
 private:
@@ -900,9 +906,196 @@ istream& operator >>(istream& i, Sala& s)
 	return i;
 }
 
+void showMenu(int step) {
+
+	system("cls");
+	//cout <<"Fisier curent: %s\n\n" << currentFile;
+	cout << "Alegeti o optiune:\n\n";
+	cout << "\t1)Emitere bilet\n";
+	cout << "\t2)Situatie locuri libere\n";
+	cout << "\t3)Situatie filme\n";
+	cout << "\t4)Modificare bilet\n";
+	cout << "\t5)Stergere bilet\n";
+	cout << "\t6)Adaugare sala\n";
+	cout << "\t7)Modificare sala\n";
+	cout << "\t8)Stergere sala\n";
+	cout << "\t9)Adaugare film\n";
+	cout << "\t10)Modificare film\n";
+	cout << "\t11)Stergere film\n";
+	cout << "\t12)Adaugare client\n";
+	cout << "\t13)Modificare client\n";													
+	cout << "\t13)Stergere client\n";
+	cout << "\t0)Iesire\n\n\n";
+
+
+
+	if (step == 1) 
+	{
+		cout <<"\t\tBiletul este: ";
+		//Bilet::emitereBilet();
+	}
+
+	if (step == 2) 
+	{
+		cout <<"\t\tSituatia locurilor libere: ";
+		//situatieLocuriLibere();
+	}
+
+	if (step == 3) 
+	{
+		cout << "Situatie filme: ";
+		//situatieFilme();
+	}
+
+	if (step == 4) 
+	{
+		cout <<"\tNoul bilet modificat este: ";
+		//alegereBilet();
+		//modificareBilet();
+	}
+
+	if (step == 5) {
+		//alegereBilet();
+		//stergereBilet();
+		cout <<("Biletul a fost sters!");
+	}
+
+	if (step == 6)
+	{
+		//adaugareSala();
+		cout << "Sala a fost adaugata!";
+	}
+
+	if (step == 7)
+	{
+		//alegereSala();
+		//modificareSala();
+		cout << "Sala a fost modificata!";
+	}
+
+	if(step==8)
+	{
+		//alegereSala();
+		//stergereSala();
+		cout << "Sala a fost stearsa!";
+	}
+
+	if (step == 9)
+	{
+		//adaugareFilm();
+		cout << "Filmul a fost adaugat!";
+	}
+
+	if (step == 10)
+	{
+		//alegereFilm();
+		//modificareFilm();
+		cout << "Filmul a fost modificat";
+	}
+
+	if (step == 11)
+	{
+		//alegereFilm();
+		//stergereFilm();
+		cout << "Filmul a fost sters!";
+	}
+
+	if (step == 12)
+	{
+		//adaugareClient();
+		cout << "Clientul a fost adaugat!";
+	}
+
+	if (step == 13)
+	{
+		//alegereClient();
+		//modificareClient();
+		cout << "Clientul a fost modificat";
+	}
+
+	if(step ==14)
+	{
+		//alegereClient();
+		//stergereClient();
+		cout << "Clientul a fost sters!";
+	}
+
+}
+
+void process(int option) {
+	switch (option) {
+	case 1: // Emitere bilet
+		showMenu(1);
+		//Bilet::emitereBilet();
+		break;
+	case 2: // Situatie locuri libere
+		showMenu(2);
+		break;
+	case 3: // Situatie filme
+		showMenu(3);
+		break;
+	case 4: // Modificare bilet
+		showMenu(4);
+		break;
+	case 5: // Stergere bilet
+		showMenu(5);
+		break;
+	case 6: // Adaugare sala
+		showMenu(6);
+		system("pause");
+		break;
+	case 7: // Modificare sala
+		showMenu(7);
+		system("pause");
+		break;
+	case 8: // Stergere sala
+		showMenu(8);
+		system("pause");
+		break;
+	case 9: // Adaugare film
+		showMenu(9);
+		system("pause");
+		break;
+	case 10: // Modificare film
+		showMenu(10);
+		system("pause");
+		break;
+	case 11: // Stergere film
+		showMenu(11);
+		system("pause");
+		break;
+	case 12: // Adaugare client
+		showMenu(12);
+		system("pause");
+		break;
+	case 13: // Modificare client
+		showMenu(13);
+		system("pause");
+		break;
+	case 14: // Stergere client
+		showMenu(14);
+		system("pause");
+		break;
+	case 0:
+		running = false;
+		break;
+	default:
+		break;
+	}
+
+}
+
 int main()
 {
-	int nrlocuri[] = { 10, 20 };
+	int option = -1;
+
+	while (running) {
+		showMenu(0);
+		cin >> option;
+		process(option);
+	}
+
+	/*int nrlocuri[] = { 10, 20 };
 	Sala s1(30, 2, nrlocuri);
 	cout << s1[0] << endl;
 	int valoare = 50;
@@ -939,7 +1132,7 @@ int main()
 	else
 	{
 		cout << "S1 si S2 nu au acelasi nr de randuri" << endl;
-	}
+	}*/
 	
 	//de testat
 }
