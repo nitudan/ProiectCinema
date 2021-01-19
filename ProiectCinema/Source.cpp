@@ -733,25 +733,55 @@ class Film
 {
 private:
 
-	char* nume;
+	string nume;
 	string tipFilm;
 	int durata;
 	float pret;
-	int nrDifuzari;
-	Program** program;
+
+	//char* nume;
+	//string tipFilm;
+	//int durata;
+	//float pret;
+	//int nrDifuzari;
+	//Program** program;
 public:
 
 	Film()
 	{
-		nume = nullptr;
+		nume = "Anonim";
 		tipFilm = "Necunoscut";
 		durata = 0;
 		pret = 0;
-		nrDifuzari = 0;
-		program = new Program * [0];
+
+		/*	nume = nullptr;
+			tipFilm = "Necunoscut";
+			durata = 0;
+			pret = 0;
+			nrDifuzari = 0;
+			program = new Program * [0];*/
 	}
 
-	Film(char* nume, string tipFilm, int durata, float pret, int nrDifuzari, Program** program)
+
+	Film(string nume, string tipFilm, int durata, float pret)
+	{
+		if (nume.length() > 0)
+		{
+			this->nume = nume;
+		}
+		if (tipFilm.length() > 0) {
+			this->tipFilm = tipFilm;
+		}
+
+		if (durata > 0) {
+			this->durata = durata;
+		}
+
+		if (pret > 0)
+		{
+			this->pret = pret;
+		}
+	}
+	/*Film(char* nume, string tipFilm, int durata, float pret, int nrDifuzari, Program** program)
 	{
 		if (nume != nullptr) {
 			this->nume = new char[strlen(nume) + 1];
@@ -782,14 +812,14 @@ public:
 			this->nrDifuzari = 0;
 		}
 
-	}
+	}*/
 
 	~Film()
 	{
-		if (this->nume != NULL)
+		/*if (this->nume != NULL)
 		{
 			delete[]this->nume;
-		}
+		}*/
 
 		/*	if (this->program != NULL)
 			{
@@ -797,95 +827,141 @@ public:
 			}*/
 	}
 
+
 	Film(const Film& f)
 	{
-		if (f.nume != nullptr) {
-			nume = new char[strlen(f.nume) + 1];
-			strcpy_s(nume, strlen(f.nume) + 1, f.nume);
+		if (f.nume.length() > 0)
+		{
+			this->nume = f.nume;
 		}
-		else {
-			nume = nullptr;
+		if (f.tipFilm.length() > 0)
+		{
+			tipFilm = f.tipFilm;
 		}
-
-		tipFilm = f.tipFilm;
-		durata = f.durata;
-		pret = f.pret;
-
-		if (f.program != nullptr && f.nrDifuzari > 0) {
-			nrDifuzari = f.nrDifuzari;
-			program = new Program * [f.nrDifuzari];
-			for (int i = 0; i < f.nrDifuzari; i++)
-			{
-				program[i] = f.program[i];
-			}
+		if (f.durata > 0)
+		{
+			this->durata = f.durata;
 		}
-		else {
-			program = nullptr;
-			nrDifuzari = 0;
+		if (f.pret > 0)
+		{
+			this->pret = f.pret;
 		}
 	}
 
-	Film operator=(const Film& f)
+	//Film(const Film& f)
+	//{
+	//	if (f.nume != nullptr) {
+	//		int len = strlen(f.nume) + 1;
+	//		nume = new char[len];
+	//		strcpy_s(nume, len, f.nume);
+	//	}
+	//	else {
+	//		nume = nullptr;
+	//	}
+
+	//	tipFilm = f.tipFilm;
+	//	durata = f.durata;
+	//	pret = f.pret;
+
+	//	if (f.program != nullptr && f.nrDifuzari > 0) {
+	//		nrDifuzari = f.nrDifuzari;
+	//		program = new Program * [f.nrDifuzari];
+	//		for (int i = 0; i < f.nrDifuzari; i++)
+	//		{
+	//			program[i] = f.program[i];
+	//		}
+	//	}
+	//	else {
+	//		program = nullptr;
+	//		nrDifuzari = 0;
+	//	}
+	//}
+
+
+	Film& operator=(const Film& f)
 	{
 		if (this != &f)
 		{
-			if (this->nume != NULL)
+			if (f.nume.length() > 0)
 			{
-				delete[]this->nume;
+				this->nume = f.nume;
 			}
-
-			if (this->program != NULL)
+			if (f.tipFilm.length() > 0)
 			{
-				delete[]this->program;
+				this->tipFilm = f.tipFilm;
 			}
-
-			if (f.nume != nullptr) {
-				nume = new char[strlen(f.nume) + 1];
-				strcpy_s(this->nume, strlen(f.nume) + 1, f.nume);
+			if (f.durata > 0)
+			{
+				this->durata = f.durata;
 			}
-			else {
-				nume = nullptr;
+			if (f.pret > 0)
+			{
+				this->pret = f.pret;
 			}
-
-			tipFilm = f.tipFilm;
-			durata = f.durata;
-			pret = f.pret;
-
-			if (f.program != nullptr && f.nrDifuzari > 0) {
-				nrDifuzari = f.nrDifuzari;
-				program = new Program * [f.nrDifuzari];
-				for (int i = 0; i < f.nrDifuzari; i++)
-				{
-					program[i] = f.program[i];
-				}
-			}
-			else {
-				nrDifuzari = 0;
-				program = nullptr;
-			}
-
-			return *this;
 		}
+		return *this;
 	}
 
-	char* getNume()
+	//Film operator=(const Film& f)
+	//{
+	//	if (this != &f)
+	//	{
+	//		if (this->nume != NULL)
+	//		{
+	//			delete[]this->nume;
+	//		}
+
+	//		if (this->program != NULL)
+	//		{
+	//			delete[]this->program;
+	//		}
+
+	//		if (f.nume != nullptr) {
+	//			nume = new char[strlen(f.nume) + 1];
+	//			strcpy_s(this->nume, strlen(f.nume) + 1, f.nume);
+	//		}
+	//		else {
+	//			nume = nullptr;
+	//		}
+
+	//		tipFilm = f.tipFilm;
+	//		durata = f.durata;
+	//		pret = f.pret;
+
+	//		if (f.program != nullptr && f.nrDifuzari > 0) {
+	//			nrDifuzari = f.nrDifuzari;
+	//			program = new Program * [f.nrDifuzari];
+	//			for (int i = 0; i < f.nrDifuzari; i++)
+	//			{
+	//				program[i] = f.program[i];
+	//			}
+	//		}
+	//		else {
+	//			nrDifuzari = 0;
+	//			program = nullptr;
+	//		}
+
+	//		return *this;
+	//	}
+	//}
+
+	string getNume()
 	{
 		return nume;
 	}
 
-	void setNume(const char* nume)
+	void setNume(const string nume)
 	{
-		if (this->nume != nullptr)
-		{
-			delete[]this->nume;
-		}
-
-		if (nume != nullptr) {
+		/*if (nume != nullptr) {
 			this->nume = new char[strlen(nume) + 1];
 			strcpy_s(this->nume, strlen(nume) + 1, nume);
 		}
 		else {
 			nume = nullptr;
+		}*/
+		if (nume.length() > 0)
+		{
+			this->nume = nume;
 		}
 	}
 
@@ -928,45 +1004,45 @@ public:
 		}
 	}
 
-	int getNrDifuzari()
-	{
-		return nrDifuzari;
-	}
+	//int getNrDifuzari()
+	//{
+	//	return nrDifuzari;
+	//}
 
-	Program** getProgram()
-	{
-		return program;
-	}
+	//Program** getProgram()
+	//{
+	//	return program;
+	//}
 
-	void setProgram(int nrDifuzari, Program** program)
-	{
-		if (this->program != nullptr)
-		{
-			delete[]this->program;
-		}
-		if (nrDifuzari > 0 && program != nullptr)
-		{
-			this->nrDifuzari = nrDifuzari;
-			this->program = new Program * [nrDifuzari];
-			for (int i = 0; i < nrDifuzari; i++)
-			{
-				this->program[i] = program[i];
-			}
-		}
-		else {
-			this->program = nullptr;
-			this->nrDifuzari = 0;
+	//void setProgram(int nrDifuzari, Program** program)
+	//{
+	//	if (this->program != nullptr)
+	//	{
+	//		delete[]this->program;
+	//	}
+	//	if (nrDifuzari > 0 && program != nullptr)
+	//	{
+	//		this->nrDifuzari = nrDifuzari;
+	//		this->program = new Program * [nrDifuzari];
+	//		for (int i = 0; i < nrDifuzari; i++)
+	//		{
+	//			this->program[i] = program[i];
+	//		}
+	//	}
+	//	else {
+	//		this->program = nullptr;
+	//		this->nrDifuzari = 0;
 
-		}
-	}
+	//	}
+	//}
 
-	Program* operator [](int index)
-	{
-		if (index >= 0 && index < nrDifuzari)
-		{
-			return this->program[index];
-		}
-	}
+	//Program* operator [](int index)
+	//{
+	//	if (index >= 0 && index < nrDifuzari)
+	//	{
+	//		return this->program[index];
+	//	}
+	//}
 
 	//operator ++ post-incrementat
 	Film operator++(int)
@@ -999,65 +1075,81 @@ public:
 
 	bool operator==(const Film& p)
 	{
-		return this->nrDifuzari == p.nrDifuzari;
+		return this->tipFilm == p.tipFilm;
 	}
 	//<<, >>, unul din + - * /, [], unul din ++ -- cu 2 forme, un cast, !, unul din < > =< =>, ==
 	friend ostream& operator<<(ostream& o, Film f);
 	friend istream& operator>>(istream& i, Film& f);
 
-	Film& operator+=(Program& p)
-	{
-		Program** copie = new Program * [this->nrDifuzari];
-		for (int i = 0; i < this->nrDifuzari; i++)
-			copie[i] = this->program[i];
+	//Film& operator+=(Program& p)
+	//{
+	//	Program** copie = new Program * [this->nrDifuzari];
+	//	for (int i = 0; i < this->nrDifuzari; i++)
+	//		copie[i] = this->program[i];
 
-		this->program = new Program * [this->nrDifuzari + 1];
-		for (int i = 0; i < this->nrDifuzari; i++)
-			this->program[i] = copie[i];
+	//	this->program = new Program * [this->nrDifuzari + 1];
+	//	for (int i = 0; i < this->nrDifuzari; i++)
+	//		this->program[i] = copie[i];
 
-		this->program[this->nrDifuzari] = &p;
+	//	this->program[this->nrDifuzari] = &p;
 
-		this->nrDifuzari++;
+	//	this->nrDifuzari++;
 
-		delete[] copie;
-		return *this;
-	}
+	//	delete[] copie;
+	//	return *this;
+	//}
 	//fisierele binare
 	//nu scriem/citim din fisier variabilele constante sau statice, niciodata!!
 	void serializare(string numeFisier)
 	{
 		ofstream f(numeFisier, ios::out | ios::binary);
-		//la char* respectiv string trebuie sa dam mai intai dimensiunea
-		//scrierea in fisier binar a unuichar*
-		int dimensiuneNume = strlen(this->nume);
-		f.write((char*)&dimensiuneNume, sizeof(dimensiuneNume));
-		f.write(this->nume, dimensiuneNume + 1);
-		//scrierea in fisier binar a unui string
-		int dimTipFilm = this->tipFilm.size();
-		f.write((char*)&dimTipFilm, sizeof(dimTipFilm));
-		f.write(this->tipFilm.c_str(), dimTipFilm + 1);
-		//functia c_str() --- converste string-ul intr-un const char* si ii adauga la final si terminatorul \0
 
-		//scrierea in fisier binar a unui numeric
+		int dimensiuneNume = nume.length() + 1;;
+		f.write((char*)&dimensiuneNume, sizeof(dimensiuneNume));
+		f.write(this->nume.c_str(), dimensiuneNume);
+
+		int dimTipFilm = tipFilm.length() + 1;
+		f.write((char*)&dimTipFilm, sizeof(dimTipFilm));
+		f.write(this->tipFilm.c_str(), dimTipFilm);
+
 		f.write((char*)&durata, sizeof(durata));
 		f.write((char*)&pret, sizeof(pret));
-		f.write((char*)&nrDifuzari, sizeof(nrDifuzari));
-		//scrierea in fisier binar a unui int*
-		for (int i = 0; i < nrDifuzari; i++)
-		{
-			f.write((char*)&program[i], sizeof(program[i]));
-		}
 	}
+
+	//int len = strlen(nume) + 1;
+	//nume = new char[len];
+	//la char* respectiv string trebuie sa dam mai intai dimensiunea
+	//scrierea in fisier binar a unuichar*
+	//int dimensiuneNume = strlen(this->nume);
+	//f.write((char*)&dimensiuneNume, sizeof(dimensiuneNume));
+	//f.write(nume, sizeof(len));
+	//scrierea in fisier binar a unui string
+	//int dimTipFilm = this->tipFilm.size();
+
+	//int dimTipFilm = tipFilm.length() + 1;
+	//f.write((char*)&dimTipFilm, sizeof(dimTipFilm));
+	//f.write(tipFilm.c_str(), dimTipFilm);
+	////functia c_str() --- converste string-ul intr-un const char* si ii adauga la final si terminatorul \0
+	////scrierea in fisier binar a unui numeric
+	//f.write((char*)&durata, sizeof(durata));
+	//f.write((char*)&pret, sizeof(pret));
+	//f.write((char*)&nrDifuzari, sizeof(nrDifuzari));
+	////scrierea in fisier binar a unui int*
+	//for (int i = 0; i < nrDifuzari; i++)
+	//{
+	//	f.write((char*)&program[i], sizeof(program[i]));
+	//}
+//}
 	void deserializare(string numeFile)
 	{
 		ifstream f(numeFile, ios::in | ios::binary);
-		//asa citim char* din binar
 		int dimNume = 0;
 		f.read((char*)&dimNume, sizeof(dimNume));
-		delete[]nume;
-		nume = new char[dimNume + 1];
-		f.read(this->nume, dimNume + 1);
-		//asa citim string in binar
+		char* buf;
+		buf = new char[dimNume];
+		f.read(buf, dimNume);
+		this->nume = buf;
+		delete[]buf;
 		int dimTipFilm = 0;
 		f.read((char*)&dimTipFilm, sizeof(dimTipFilm));
 		char* aux;
@@ -1065,18 +1157,48 @@ public:
 		f.read(aux, dimTipFilm + 1);
 		this->tipFilm = aux;
 		delete[]aux;
-
 		//asa citim int in binar
-
 		f.read((char*)&durata, sizeof(durata));
 		f.read((char*)&pret, sizeof(pret));
-		f.read((char*)&nrDifuzari, sizeof(nrDifuzari));
-		delete[]this->program;
-		this->program = new Program * [this->nrDifuzari];
-		for (int i = 0; i < nrDifuzari; i++)
-		{
-			f.read((char*)&program[i], sizeof(program[i]));
-		}
+
+		//asa citim char* din binar
+		/*int dimNume = 0;
+		f.read((char*)&dimNume, sizeof(dimNume));
+		delete[]nume;
+		nume = new char[dimNume + 1];
+		f.read(this->nume, dimNume + 1);*/
+		//int dimTipFilm = 0;
+		//f.read((char*)&dimTipFilm, sizeof(dimTipFilm));
+		//char* aux;
+		//aux = new char[dimTipFilm];
+		//f.read(aux, dimTipFilm);
+		//tipFilm = aux;
+
+
+		//string buffer = "";
+		//char c = 0;
+		//while ((c = f.get()) != 0) {
+		//	buffer += c;
+		//}
+		////delete[]nume;
+		//nume = new char[buffer.length() + 1];
+		//strcpy_s(nume, buffer.length() + 1, buffer.c_str());
+		//
+		////asa citim string in binar
+		//
+		////delete[]aux;
+
+		////asa citim int in binar
+
+		//f.read((char*)&durata, sizeof(durata));
+		//f.read((char*)&pret, sizeof(pret));
+		//f.read((char*)&nrDifuzari, sizeof(nrDifuzari));
+		//delete[]this->program;
+		//this->program = new Program * [this->nrDifuzari];
+		//for (int i = 0; i < nrDifuzari; i++)
+		//{
+		//	f.read((char*)&program[i], sizeof(program[i]));
+		//}
 	}
 
 };
@@ -1151,17 +1273,17 @@ public:
 
 	void serializare(string numeFisier)
 	{
-		ofstream f(numeFisier, ios::out | ios::binary);
+		ofstream f(numeFisier, ios::out | ios::app | ios::binary);
 		//scrierea in fisier binar a unui numeric
 		f.write((char*)&nrFilme, sizeof(int));
 		//scrierea in fisier binar a unui int*
 
-		filme = new Film[nrFilme];
-		int length = sizeof(filme);
-		f.write((char*)&length, sizeof(int));
+		//filme = new Film[nrFilme];
+		//int length = sizeof(filme);
+		//f.write((char*)&length, sizeof(int));
 		for (int i = 0; i < nrFilme; i++)
 		{
-			f.write((char*)&filme[i], length);
+			f.write((char*)&filme[i], sizeof(Film));
 		}
 		f.close();
 	}
@@ -1172,17 +1294,17 @@ public:
 		if (!f) {
 			cout << "Cannot open file!" << endl;
 		}
-		int length = 0;
-		f.read((char*)&length, sizeof(int));
-		f.read((char*)&nrFilme, sizeof(int));
-		if (filme != nullptr)
-		{
-			delete[]filme;
-		}
+		//int length = 0;
+		//f.read((char*)&length, sizeof(length));
+		f.read((char*)&nrFilme, sizeof(nrFilme));
+		//if (filme != nullptr)
+		//{
+		//	delete[]filme;
+		//}
 		filme = new Film[nrFilme];
 		for (int i = 0; i < nrFilme; i++)
 		{
-			f.read((char*)&filme[i], length);
+			f.read((char*)&filme[i], sizeof(filme[i]));
 		}
 		f.close();
 		if (!f.good()) {
@@ -1228,7 +1350,7 @@ public:
 	void afisareFilme()
 	{
 		int nr = 1;
-		this->deserializare("Film.bin");
+		//this->deserializare("Film.bin");
 		cout << "Avem disponibile urmatoare filme: " << endl;
 		for (int i = 0; i < nrFilme; i++)
 		{
@@ -1256,9 +1378,120 @@ public:
 		addFilm(f);
 		cout << "\nFilmul a fost adaugat!\n" << endl;
 		remove("Film.bin");
-		serializare("Film.bin");
-		afisareFilme();
+		//serializare("Film.bin");
+		//afisareFilme();
 	}
+
+	void stergereFilm()
+	{
+		int nrFilm = 1;
+		int nrSelectat;
+		//this->deserializare("Film.bin");
+		cout << "Avem disponibile urmatoare filme: " << endl;
+		for (int i = 0; i < nrFilme; i++)
+		{
+
+			cout << "\nFilm: " << nrFilm << "\n";
+			cout << this->filme[i] << endl;
+			nrFilm++;
+		}
+		cout << endl;
+
+		cout << "Selecteaza filmul pe care vrei sa il stergi!" << endl;
+		cin >> nrSelectat;
+
+		//deserializare("Film.bin");
+		int nr = 0;
+		Film* copie = new Film[this->nrFilme];
+		for (int i = 0; i < this->nrFilme; i++)
+		{
+			if (i != (nrSelectat - 1))
+			{
+				copie[nr] = this->filme[i];
+				nr++;
+			}
+		}
+		delete[] this->filme;
+		this->nrFilme = nr;
+		this->filme = new Film[nr];
+		for (int i = 0; i < nr; i++)
+		{
+			this->filme[i] = copie[i];
+		}
+		//remove("Film.bin");
+		//serializare("Film.bin");
+		cout << "Filmul a fost sters!" << endl;
+	}
+
+	void modificareFilme()
+	{
+		int nrFilm = 1;
+		int nrSelectat;
+		//this->deserializare("Film.bin");
+		cout << "Avem disponibile urmatoare filme: " << endl;
+		for (int i = 0; i < nrFilme; i++)
+		{
+
+			cout << "\nFilm: " << nrFilm << "\n";
+			cout << this->filme[i] << endl;
+			nrFilm++;
+		}
+		cout << endl;
+		string nume;
+		string tipFilm;
+		int durata;
+		float pret;
+		cout << "Selecteaza filmul pe care vrei sa il modifici!" << endl;
+		cin >> nrSelectat;
+		cout << "Modifica numele filmului: " << endl;
+		cin >> ws;
+		getline(cin, nume);
+		for (int i = 0; i < nrFilme; i++)
+		{
+			if (nrSelectat == i)
+			{
+				this->getFilme()->setNume(nume);
+			}
+
+		}
+		cout << "Modifica tipul filmului: " << endl;
+		cin >> ws;
+		getline(cin, tipFilm);
+		for (int i = 0; i < nrFilme; i++)
+		{
+			if (nrSelectat == i)
+			{
+				this->getFilme()->setTipFilm(tipFilm);
+			}
+
+		}
+		cout << "Modifica durata filmului: " << endl;
+		cin >> durata;
+		for (int i = 0; i < nrFilme; i++)
+		{
+			if (nrSelectat == i)
+			{
+				this->getFilme()->setDurata(durata);
+			}
+
+		}
+		cout << "Modifica pretul filmului: " << endl;
+		cin >> pret;
+		for (int i = 0; i < nrFilme; i++)
+		{
+			if (nrSelectat == i)
+			{
+				this->getFilme()->setPret(pret);
+			}
+
+		}
+
+		cout << "Filmul a fost modificat!" << endl;
+		//remove("Film.bin");
+		//this->serializare("Film.bin");
+	}
+
+
 
 	friend ostream& operator << (ostream& out, vectorFilme vf);
 
@@ -1415,9 +1648,6 @@ public:
 class Bilet : public Film, public Sala
 {
 private:
-
-	Film film;
-	Sala sala;
 	string tipClient;
 	float reducere;
 	//Program program;
@@ -1432,7 +1662,7 @@ public:
 		this->pretTotal = 0;
 	}
 
-	Bilet(char* nume, string tipFilm, int durata, float pret, int nrDifuzari, Program** program, int nrMaxLocuri, int nrRanduri, int nrLocuri, string tipClient, float reducere, float pretTotal) :Film(nume, tipFilm, durata, pret, nrDifuzari, program), Sala(nrMaxLocuri, nrRanduri, nrLocuri)
+	Bilet(string nume, string tipFilm, int durata, float pret, int nrMaxLocuri, int nrRanduri, int nrLocuri, string tipClient, float reducere, float pretTotal) :Film(nume, tipFilm, durata, pret), Sala(nrMaxLocuri, nrRanduri, nrLocuri)
 	{
 		if (tipClient == "adult" || tipClient == "elev" || tipClient == "student" || tipClient == "pensionar")
 		{
@@ -1557,9 +1787,9 @@ public:
 	//nu scriem/citim din fisier variabilele constante sau statice, niciodata!!
 	void serializare(string numeFisier)
 	{
-		ofstream f(numeFisier, ios::out | ios::binary);
-		f.write((char*)&film, sizeof(film));
-		f.write((char*)&sala, sizeof(sala));
+		ofstream f(numeFisier, ios::out | ios::app | ios::binary);
+		//f.write((char*)&film, sizeof(film));
+		//f.write((char*)&sala, sizeof(sala));
 		int dimTipClient = this->tipClient.size();
 		f.write((char*)&dimTipClient, sizeof(dimTipClient));
 		f.write(this->tipClient.c_str(), dimTipClient + 1);
@@ -1570,8 +1800,8 @@ public:
 	void deserializare(string numeFile)
 	{
 		ifstream f(numeFile, ios::in | ios::binary);
-		f.read((char*)&film, sizeof(film));
-		f.read((char*)&sala, sizeof(sala));
+		//f.read((char*)&film, sizeof(film));
+		//f.read((char*)&sala, sizeof(sala));
 		//asa citim string in binar
 		int dimTipClient = 0;
 		f.read((char*)&dimTipClient, sizeof(dimTipClient));
@@ -1583,6 +1813,13 @@ public:
 		f.read((char*)&reducere, sizeof(reducere));
 		f.read((char*)&pretTotal, sizeof(pretTotal));
 	}
+
+	//Film film;
+	//Sala sala;
+	//string tipClient;
+	//float reducere;
+	////Program program;
+	//float pretTotal;
 
 	/*void adaugareBilet()
 	{
@@ -1610,6 +1847,424 @@ public:
 	}*/
 };
 
+class vectorBilete
+{
+private:
+	int nrBilete;
+	Bilet* bilete;
+public:
+	vectorBilete()
+	{
+		nrBilete = 0;
+		bilete = nullptr;
+	}
+
+	vectorBilete(int nrBilete, Bilet* bilete)
+	{
+		this->nrBilete = nrBilete;
+		this->bilete = new Bilet[nrBilete];
+		for (int i = 0; i < nrBilete; i++)
+		{
+			this->bilete[i] = bilete[i];
+		}
+	}
+
+	vectorBilete(const vectorBilete& vf)
+	{
+		this->nrBilete = vf.nrBilete;
+		this->bilete = new Bilet[vf.nrBilete];
+		for (int i = 0; i < vf.nrBilete; i++)
+		{
+			this->bilete[i] = vf.bilete[i];
+		}
+	}
+
+	~vectorBilete()
+	{
+		if (this->bilete != NULL)
+		{
+			delete[]this->bilete;
+		}
+	}
+
+	vectorBilete& operator=(const vectorBilete& vf)
+	{
+		if (this != &vf)
+		{
+			if (this->bilete != NULL)
+			{
+				delete[]this->bilete;
+			}
+			this->nrBilete = vf.nrBilete;
+			this->bilete = new Bilet[vf.nrBilete];
+			for (int i = 0; i < vf.nrBilete; i++)
+			{
+				this->bilete[i] = vf.bilete[i];
+			}
+		}
+		return *this;
+	}
+
+	int getNrBilete()
+	{
+		return this->nrBilete;
+	}
+
+	Bilet* getBilete()
+	{
+		return this->bilete;
+	}
+
+	void serializare(string numeFisier)
+	{
+		ofstream f(numeFisier, ios::out | ios::app | ios::binary);
+		//scrierea in fisier binar a unui numeric
+		f.write((char*)&nrBilete, sizeof(int));
+		//scrierea in fisier binar a unui int*
+
+		//filme = new Film[nrFilme];
+		//int length = sizeof(filme);
+		//f.write((char*)&length, sizeof(int));
+		for (int i = 0; i < nrBilete; i++)
+		{
+			f.write((char*)&bilete[i], sizeof(Bilet));
+		}
+		f.close();
+	}
+
+	void deserializare(string numeFisier)
+	{
+		ifstream f(numeFisier, ios::in | ios::binary);
+		if (!f) {
+			cout << "Cannot open file!" << endl;
+		}
+		//int length = 0;
+		//f.read((char*)&length, sizeof(length));
+		f.read((char*)&nrBilete, sizeof(nrBilete));
+		if (bilete != nullptr)
+		{
+			delete[]bilete;
+		}
+		bilete = new Bilet[nrBilete];
+		for (int i = 0; i < nrBilete; i++)
+		{
+			f.read((char*)&bilete[i], sizeof(bilete[i]));
+		}
+		f.close();
+		if (!f.good()) {
+			cout << "Error occurred at reading time!" << endl;
+		}
+	}
+
+	vectorBilete& operator+=(Bilet& bilet)
+	{
+		Bilet* copie = new Bilet[this->nrBilete];
+		for (int i = 0; i < this->nrBilete; i++)
+		{
+			copie[i] = this->bilete[i];
+		}
+
+		this->bilete = new Bilet[this->nrBilete + 1];
+		for (int i = 0; i < this->nrBilete; i++)
+		{
+			this->bilete[i] = copie[i];
+		}
+		this->bilete[this->nrBilete] = bilet;
+		this->nrBilete++;
+		delete[]copie;
+		return *this;
+	}
+
+	void addBilet(Bilet bilet)
+	{
+		vectorBilete copie = *this;
+		delete[]this->bilete;
+		this->nrBilete++;
+		this->bilete = new Bilet[this->nrBilete];
+		for (int i = 0; i < copie.nrBilete; i++)
+		{
+			this->bilete[i] = copie.bilete[i];
+		}
+		for (int i = copie.nrBilete; i < this->nrBilete; i++)
+		{
+			this->bilete[i] = bilet;
+		}
+	}
+
+	void afisareBilete()
+	{
+		int nr = 1;
+		deserializare("Bilet.bin");
+		cout << "Avem disponibile urmatoare filme: " << endl;
+		for (int i = 0; i < nrBilete; i++)
+		{
+
+			cout << "\nFilm: " << nr << "\n";
+			cout << this->bilete[i] << endl;
+			nr++;
+		}
+		cout << endl;
+
+		/*cout << "Urmatoarele filme ruleaza in cinematograful nostru: " << endl;
+		for (int i = 0; i < nrFilme; i++)
+		{
+			cout << *filme[i] << endl;
+		}
+		cout << endl;*/
+	}
+
+	void adaugareBilete()
+	{
+		vectorSali  vs;
+		vectorFilme vf;
+		vs.deserializare("Sali.bin");
+		//vf.deserializare("Film.bin");
+
+		int nrSelectie;
+		int nrFilm = 1;
+		int nrSala = 1;
+		string tipClient;
+		float reducere;
+		int nrRand;
+		int nrLoc;
+
+
+		/*cout << "\nTe rugam sa alegi filmul: " << endl;
+		for (int i = 0;i < vf.getNrFilme(); i++)
+		{
+			cout << "\nNume film: " << nrFilm << "\n";
+			cout << vf.getFilme()->getNume()[i] << endl;
+			nrFilm++;
+		}
+		cin >> nrFilm;*/
+
+		cout << "\nSalile disponibile sunt: " << endl;
+		for (int i = 0;i < vs.getNrSali(); i++)
+		{
+			cout << "\nNumar sala: " << nrSala << endl;
+			cout << "Id Sala: " << vs.getSali()->getIdSala() << endl;
+			nrSala++;
+		}
+		cout << "\nVa rugam sa introduceti sala corespunzatoare!" << endl;
+		cin >> nrSelectie;
+		while (nrSelectie < 0 || nrSelectie > nrSala)
+		{
+			cout << "Numarul salii ales nu este corect! Te rugam reintroduce!" << endl;
+			cin >> nrSelectie;
+		}
+
+		cout << "Introduce numarului randului de la 1 la 10: " << endl;
+		cin >> nrRand;
+		while (nrRand < 0 || nrRand > 10)
+		{
+			cout << "Nr randului nu este corect! Te rugam reintroduce!" << endl;
+			cin >> nrRand;
+		}
+
+		cout << "Introduce numarului locului de la 1 la 10: " << endl;
+		cin >> nrLoc;
+		while (nrLoc < 0 || nrLoc > 10)
+		{
+			cout << "Nr randului nu este corect! Te rugam reintroduce!" << endl;
+			cin >> nrLoc;
+		}
+
+		cout << "\nIntroduceti tipul clientului: " << endl;
+		cin >> tipClient;
+		while (tipClient != "adult" && tipClient != "elev" && tipClient != "student" && tipClient != "pensionar")
+		{
+			cout << "Tipul clientului nu este corect! Te rugam sa selectezi una din optiunile: adult, elev, student, pensionar!" << endl;
+			cin >> tipClient;
+		};
+
+		cout << "\nIntroduceti reducerea: " << endl;
+		cin >> reducere;
+		while (reducere < 0 || reducere > 100)
+		{
+			cout << "Reducerea nu este corecta! Te rugam reintroduce un numar de la 0 la 100!" << endl;
+			cin >> reducere;
+		}
+
+
+		float pretStandard = 25;
+		float pretFinal = pretStandard - (pretStandard * reducere / 100);
+		cout << "\n\n\n" << endl;
+
+
+
+		fstream fisier;
+		fisier.open("emitere_bilet.txt", fstream::app);
+		/*if (nrFilm == 1)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 2)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 3)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 4)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 5)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 6)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 7)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 8)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 9)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}
+		else if (nrFilm == 10)
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este : " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}*/
+		/*else
+		{
+			cout << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tFilmul ales este: " << vf.getFilme()->getNume()[nrFilm] << endl;
+		}*/
+
+		if (nrSala == 1)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 2)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 3)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 4)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 5)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 6)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 7)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 8)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 9)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else if (nrSala == 10)
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este : " << vs.getSali()->getIdSala() << endl;
+		}
+		else
+		{
+			cout << "\tSala selectata este: " << vs.getSali()->getIdSala() << ". Acesta va fi afisat in bilet.\n";
+			fisier << "\tSala selectata este: " << vs.getSali()->getIdSala() << endl;
+		}
+
+		cout << "\tRandul selectat este: " << nrRand << endl;
+		fisier << "\tRandul selectat este: " << nrRand << endl;
+
+		cout << "\tRandul selectat este: " << nrLoc << endl;
+		fisier << "\tRandul selectat este: " << nrLoc << endl;
+
+		cout << "\tTipul clientului selectat: " << tipClient << endl;
+		fisier << "\tTipul clientului selectat: " << tipClient << endl;
+
+		cout << "\tReducerea aplicata este de: " << reducere << "%" << endl;
+		fisier << "\tReducerea aplicata este de: " << reducere << "%" << endl;
+
+		cout << "\tPretul biletului este de: " << pretFinal << " Lei " << endl;
+		fisier << "\tPretului biletului este de: " << pretFinal << endl;
+		cout << "\n\tBiletul a fost emis!" << endl;
+
+	}
+
+	void stergereBilete(int nrCurent)
+	{
+		deserializare("Bilet.bin");
+		int nr = 0;
+		Bilet* copie = new Bilet[this->nrBilete];
+		for (int i = 0; i < this->nrBilete; i++)
+		{
+			if (i != (nrCurent - 1))
+			{
+				copie[nr] = this->bilete[i];
+				nr++;
+			}
+		}
+		delete[] this->bilete;
+		this->nrBilete = nr;
+		this->bilete = new Bilet[nr];
+		for (int i = 0; i < nr; i++)
+		{
+			this->bilete[i] = copie[i];
+		}
+		remove("Bilet.bin");
+		serializare("Bilet.bin");
+	}
+
+	void modificareBilete()
+	{
+		afisareBilete();
+		int nrCurent;
+		cout << "\nSelectati numarul biletului: " << endl;
+		cin >> nrCurent;
+		stergereBilete(nrCurent);
+		adaugareBilete();
+		remove("Bilet.bin");
+		this->serializare("Bilet.bin");
+	}
+
+	friend ostream& operator << (ostream& out, vectorBilete vf);
+
+	friend istream& operator >>(istream& in, vectorBilete& vf);
+
+};
 
 class Cinematograf
 {
@@ -1809,9 +2464,9 @@ public:
 	{
 		ofstream f(numeFisier, ios::out | ios::binary);
 		//scrierea in fisier binar a unui string
-		int dimensiuneNume = this->nume.size();
+		int dimensiuneNume = nume.length() + 1;
 		f.write((char*)&dimensiuneNume, sizeof(dimensiuneNume));
-		f.write(this->nume.c_str(), dimensiuneNume + 1);
+		f.write(this->nume.c_str(), dimensiuneNume);
 		//functia c_str() --- converste string-ul intr-un const char* si ii adauga la final si terminatorul \0
 		//scrierea in fisier binar a unui numeric
 		f.write((char*)&nrSali, sizeof(nrSali));
@@ -1840,8 +2495,8 @@ public:
 		int dimNume = 0;
 		f.read((char*)&dimNume, sizeof(dimNume));
 		char* aux;
-		aux = new char[dimNume + 1];
-		f.read(aux, dimNume + 1);
+		aux = new char[dimNume];
+		f.read(aux, dimNume);
 		this->nume = aux;
 		delete[]aux;
 		//asa citim int in binar
@@ -1913,9 +2568,17 @@ public:
 			this->suprafataCamere[i] = valoare;
 		}
 	}*/
+
+	//void adaugaBilet()
+	//{
+	//	cout << "Alege numele filmului: " << endl;
+	//	for (int i = 0; i < nrFilme;i++)
+	//	{
+	//		cout << nr << 
+	//		cout << filme->getNume() << "\n"
+	//	}
+	//}
 };
-
-
 
 ostream& operator<<(ostream& out, Cinematograf c)
 {
@@ -2044,14 +2707,14 @@ istream& operator>>(istream& in, Bilet& b)
 
 ostream& operator<<(ostream& o, Film f)
 {
-	if (f.nume != nullptr) {
-		o << "Numele filmului: " << f.nume << endl;
-	}
-
+	//if (f.nume != nullptr) {
+	//	o << "Numele filmului: " << f.nume << endl;
+	//}
+	o << "Numele filmului: " << f.nume << endl;
 	o << "Tipul filmului: " << f.tipFilm << endl;
 	o << "Durata filmului: " << f.durata << endl;
 	o << "Pretul filmului: " << f.pret << endl;
-	o << "Numarul difuzarilor al filmului: " << f.nrDifuzari << endl;
+	//o << "Numarul difuzarilor al filmului: " << f.nrDifuzari << endl;
 
 	//if (f.program != nullptr) {
 	//	for (int i = 0; i < f.nrDifuzari; i++)
@@ -2065,8 +2728,27 @@ ostream& operator<<(ostream& o, Film f)
 
 istream& operator>>(istream& in, Film& f)
 {
-	delete[] f.nume;
 	cout << "Introduceti numele filmului: " << endl;
+	//cin >> f.nume;
+	in >> ws;
+	getline(in, f.nume);
+	cout << endl << endl;
+	cout << "Introduceti tipul filmului: " << endl;
+	cout << endl << endl;
+	//cin >> f.tipFilm;
+	in >> ws;
+	getline(in, f.tipFilm);
+	cout << "Introduceti durata filmului: " << endl;
+	cout << endl << endl;
+	in >> f.durata;
+	cout << endl << endl;
+	cout << "Introduceti pretul filmului: " << endl;
+	in >> f.pret;
+	cout << endl << endl;
+	return in;
+
+	//delete[] f.nume;
+	/*cout << "Introduceti numele filmului: " << endl;
 	char buffer[100];
 	in >> ws;
 	in.getline(buffer, 99);
@@ -2088,7 +2770,8 @@ istream& operator>>(istream& in, Film& f)
 	if (f.program != NULL)
 	{
 		delete[]f.program;
-	}
+	}*/
+
 	//if (f.nrDifuzari > 0) {
 	//	f.program = new Program*[f.nrDifuzari];
 	//	for (int i = 0; i < f.nrDifuzari; i++)
@@ -2107,8 +2790,7 @@ istream& operator>>(istream& in, Film& f)
 	//	f.program = nullptr;
 	//}
 
-	cout << endl;
-	return in;
+
 }
 
 ostream& operator<<(ostream& out, Program p)
@@ -2202,6 +2884,34 @@ istream& operator >>(istream& in, vectorFilme& vf)
 	for (int i = 0; i < vf.nrFilme; i++)
 	{
 		in >> vf.filme[i];
+		cout << "\n";
+	}
+	cout << endl;
+	return in;
+}
+
+ostream& operator << (ostream& out, vectorBilete vf)
+{
+	out << "Numarul de bilete disponibile este: " << vf.nrBilete << endl;
+	out << "Biletele sunt dupa cum urmeaza: " << endl;
+	if (vf.bilete != nullptr) {
+		for (int i = 0; i < vf.nrBilete; i++) {
+			out << vf.bilete[i] << " \n";
+		}
+	}
+	out << endl;
+	return out;
+}
+
+istream& operator >>(istream& in, vectorBilete& vf)
+{
+	cout << "Introduceti nr de bilete: " << endl;
+	in >> vf.nrBilete;
+	cout << endl;
+	cout << "Introduceti biletele: " << endl;
+	for (int i = 0; i < vf.nrBilete; i++)
+	{
+		in >> vf.bilete[i];
 		cout << "\n";
 	}
 	cout << endl;
@@ -2348,25 +3058,25 @@ void printSali(vector<vectorSali> arr)
 
 vectorSali vs;
 vectorFilme vf;
+vectorBilete vb;
 void showMenu(int step) {
 	//Cinematograf c;
+	cout << endl << "----------------------------" << endl;
+	cout << endl << "      Meniul Principal   " << endl;
+	cout << endl << "----------------------------" << endl;
 	system("cls");
 	cout << "Alegeti o optiune:\n\n";
 	cout << "\t1)Emitere bilet\n";
-	cout << "\t2)Situatie locuri libere\n";
-	cout << "\t3)Situatie filme\n";
-	cout << "\t4)Adaugare bilet\n";
-	cout << "\t5)Modificare bilet\n";
-	cout << "\t6)Stergere bilet\n";
-	cout << "\t7)Adaugare sala\n";
-	cout << "\t8)Modificare sala\n";
-	cout << "\t9)Stergere sala\n";
-	cout << "\t10)Adaugare film\n";
-	cout << "\t11)Modificare film\n";
-	cout << "\t12)Stergere film\n";
-	cout << "\t13)Afisare sali\n";
-	cout << "\t14)Afisare filme\n";
-	cout << "\t15)Afisare programe\n";
+	cout << "\t2)Situatie locuri libere - nu este diponibila!\n";
+	cout << "\t3)Situatie filme - nu esti disponbila!\n";
+	cout << "\t4)Adaugare sala\n";
+	cout << "\t5)Modificare sala\n";
+	cout << "\t6)Stergere sala\n";
+	cout << "\t7)Afisare sali\n";
+	cout << "\t8)Adaugare film\n";
+	cout << "\t9)Modificare film\n";
+	cout << "\t10)Stergere film\n";
+	cout << "\t11)Afisare filme\n";
 	cout << "\t0)Iesire\n\n\n";
 
 	if (step == 0)
@@ -2380,8 +3090,7 @@ void showMenu(int step) {
 	{
 		/*cout << "\t\tBiletul este: ";*/
 		//Bilet::emitereBilet();
-		emitereBilet(step);
-
+		vb.adaugareBilete();
 	}
 
 	if (step == 2)
@@ -2394,39 +3103,22 @@ void showMenu(int step) {
 	{
 		cout << "Situatie filme: ";
 		//situatieFilme();
+		vectorFilme vf;
+		vf.afisareFilme();
 	}
 
 	if (step == 4)
-	{
-		cout << "Adaugare bilet!\n";
-		//adaugareBilet();
-	}
-
-	if (step == 5)
-	{
-		cout << "\tNoul bilet modificat este: ";
-		//alegereBilet();
-		//modificareBilet();
-	}
-
-	if (step == 6)
-	{
-		//alegereBilet();
-		//stergereBilet();
-	}
-
-	if (step == 7)
 	{
 		//c1..adaugasali(sala2);
 		vs.adaugareSali();
 	}
 
-	if (step == 8)
+	if (step == 5)
 	{
 		vs.modificareSali();
 	}
 
-	if (step == 9)
+	if (step == 6)
 	{
 		int nrCurent;
 		vs.afisareSali();
@@ -2437,9 +3129,15 @@ void showMenu(int step) {
 		//c.stergereSala();
 	}
 
-	if (step == 10)
+
+	if (step == 7)
 	{
-		vectorFilme vf;
+		vs.afisareSali();
+
+	}
+
+	if (step == 8)
+	{
 		vf.adaugareFilme();
 		//cin >> f;
 		//vf += f;
@@ -2448,46 +3146,45 @@ void showMenu(int step) {
 		cout << "Filmul a fost adaugat!";
 	}
 
-	if (step == 11)
+	if (step == 9)
 	{
-		//vectorFilme vf;
-		//vf.deserializare("Filme.bin");
-		for (int i = 0; i < vf.getNrFilme(); i++)
-		{
-			cout << vf.getFilme()[i] << "\n";
-		}
+		vf.modificareFilme();
 		//alegereFilm();
 		//modificareFilm();
 		//cout << "Filmul a fost modificat";
 	}
 
-	if (step == 12)
+	if (step == 10)
 	{
-		//alegereFilm();
-		//stergereFilm();
-		cout << "Filmul a fost sters!";
+		vf.stergereFilm();
 	}
 
-	if (step == 13)
+	if (step == 11)
 	{
-		vectorSali vs;
-		vs.afisareSali();
-		//adaugareClient();
-	}
-
-	if (step == 14)
-	{
-		vectorFilme vf;
 		vf.afisareFilme();
 	}
 
-	if (step == 15)
+	if (step == 20)
 	{
-		//alegereClient();
-		//stergereClient();
-		cout << "Clientul a fost sters!";
+		//cout << "Adaugare bilet!\n";
+		vb.adaugareBilete();
 	}
 
+	if (step == 21)
+	{
+		cout << "\tNoul bilet modificat este: ";
+		//alegereBilet();
+		vb.modificareBilete();
+	}
+
+	if (step == 22)
+	{
+		int nrCurent;
+		vb.afisareBilete();
+		cout << "Selecteaza biletul pe care doresti sa il stergi!" << endl;
+		cin >> nrCurent;
+		vb.stergereBilete(nrCurent);
+	}
 }
 
 void procesBilet(int option) {
@@ -2526,6 +3223,7 @@ void process(int option) {
 	switch (option) {
 	case 1: // Emitere bilet
 		showMenu(1);
+		system("pause");
 		//Bilet::emitereBilet();
 		break;
 	case 2: // Situatie locuri libere
@@ -2536,9 +3234,11 @@ void process(int option) {
 		break;
 	case 4: // Modificare bilet
 		showMenu(4);
+		system("pause");
 		break;
 	case 5: // Stergere bilet
 		showMenu(5);
+		system("pause");
 		break;
 	case 6: // Adaugare sala
 		showMenu(6);
@@ -2564,15 +3264,15 @@ void process(int option) {
 		showMenu(11);
 		system("pause");
 		break;
-	case 12: // Adaugare client
+	case 20: // Adaugare client
 		showMenu(12);
 		system("pause");
 		break;
-	case 13: // Modificare client
+	case 21: // Modificare client
 		showMenu(13);
 		system("pause");
 		break;
-	case 14: // Stergere client
+	case 22: // Stergere client
 		showMenu(14);
 		system("pause");
 		break;
@@ -2597,6 +3297,10 @@ int main()
 		cin >> option;
 		process(option);
 	}
+
+	//vectorBilete v;
+	//v.adaugareBilete();
+
 	//Sala s1(10, 2, 5);
 	//Sala s2(30, 3, 10);
 	//Sala s3(24, 4, 6);
@@ -2718,26 +3422,6 @@ int main()
 	//de testat
 
 // Faza 3 verificare refactorizare prin STL
-	vector<vectorSali> toateSalile;
-	printSali(toateSalile);
+	//vector<vectorSali> toateSalile;
+	//printSali(toateSalile);
 }
-
-
-/*
-
- Bilet b;
- deserializare b; ai grijha sa lucrezi pe original b
- ai grija sa deschizi fisierul si dupa serilizare sa il inchizi
-
-
- acum faci meniu...
- si toate  fucntiile din mebiu le apelezi pt B ...
- atentite B original /// toate functiile care lucreaza cu b ....
- sa lucreze pe b original
-
- nu trebuie in fiecare fucntie din meniu seriaolizare ...
-
-
-
- b serializare   deschizi fiser si inchizi ...
- */
